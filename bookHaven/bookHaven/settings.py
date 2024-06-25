@@ -49,12 +49,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bookHaven.urls'
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,6 +90,11 @@ DATABASES = {
 
 # settings.py
 
+ROOT_URLCONF = 'bookHaven.urls'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/books/'
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',         # Admin interface
     'django.contrib.auth',          # Authentication framework
@@ -96,11 +103,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',      # Messaging framework
     'django.contrib.staticfiles',   # Static file handling
     'rest_framework',               # Django REST Framework
-    'myapp',                        # Your application
+    'myapp',                        
 ]
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -119,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

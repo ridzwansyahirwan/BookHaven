@@ -5,8 +5,9 @@ from rest_framework import status
 from django.http import Http404
 from .models import Book
 from .serializers import BookSerializer
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class BookList(APIView):
+class BookList(LoginRequiredMixin, APIView):
     def get(self, request):
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)
@@ -18,8 +19,8 @@ class BookList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class BookDetail(APIView):
+    
+class BookDetail(LoginRequiredMixin, APIView):
     def get_object(self, pk):
         try:
             return Book.objects.get(pk=pk)
