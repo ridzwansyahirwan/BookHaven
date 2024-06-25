@@ -1,0 +1,25 @@
+1. To change the database go to bookHaven/settings.py on the #database section.
+
+2. The system is using Django built in authentication system. To access it you can use the following username and password:
+
+username: ridzwan
+password: password123
+
+username: aria
+password: password123
+
+3. To create a new user, you can use the following command: 
+- python manage.py createsuperuser
+
+4. Since the system using MySQL database on localhost, the database need to be imported first. 
+(look for SQL file named bookhavendb attached together with this code)
+
+5. After succefully importing the database or connecting to new database, run the system using the following command. (Ps. Make sure the path is correct, last path should be ../bookHaven)
+- python manage.py makemigrations myapp
+- python manage.py migrate
+- python manage.py runserver 
+
+6. For testing (tests.py), use the following commands:
+- python manage.py test myapp.tests
+
+
