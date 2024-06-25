@@ -1,8 +1,14 @@
 from django.db import models
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
-# Create your models here.
-
-from django.core.validators import RegexValidator
+def validate_published_year(value):
+    current_year = timezone.now().year
+    if value < 1000 or value > current_year:
+        raise ValidationError(
+            f'{value} is not a valid year. Year must be between 1000 and {current_year}.'
+        )
 
 class Book(models.Model):
     isbn = models.CharField(
@@ -14,11 +20,7 @@ class Book(models.Model):
     )
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    published_year = models.IntegerField()
+    published_year = models.IntegerField(
+        validators=[MinValueValidator(1000), MaxValueValidator(timezone.now().year)],
+    )
     genre = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"{self.title} by {self.author} (Genre: {self.genre}, Published: {self.published_year.year} ISBN: {self.isbn})"
-    
-
-

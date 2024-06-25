@@ -6,8 +6,11 @@ from django.http import Http404
 from .models import Book
 from .serializers import BookSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.permissions import AllowAny
 
 class BookList(LoginRequiredMixin, APIView):
+    permission_classes = [AllowAny] #allow access for testing only
+
     def get(self, request):
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)

@@ -85,6 +85,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',  #change this to db server IP address
         'PORT': '3306',       #db server port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
